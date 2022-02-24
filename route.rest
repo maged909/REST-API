@@ -1,0 +1,27 @@
+GET http://localhost:3000/posts
+
+###
+
+GET http://localhost:3000/posts?page=1&limit=2
+
+###
+
+POST http://localhost:3000/posts
+Content-Type: application/json
+
+{
+    "title":"newwwst3",
+    "body":"a long ww h333 to type out"
+}
+###
+GET http://localhost:3000/posts/62177d5ec97aaf80b4f9329d
+
+###
+DELETE http://localhost:3000/posts/62177d5ec97aaf80b4f9329d
+###
+PATCH http://localhost:3000/posts/62178aa0ad5061ad1e7e3061
+Content-Type: application/json
+
+{
+    "title":"new title"
+}
