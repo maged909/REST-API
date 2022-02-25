@@ -3,7 +3,12 @@ const router = express.Router();
 const User = require('../models/user')
 const getPaginatedResults = require('../middlewares/getPaginatedResults')
 const getOne = require('../middlewares/getOne')
-const bcrypt = require('bcrypt')
+const authorization =require('../middlewares/authorization')
+const jwt = require('jsonwebtoken')
+require("dotenv").config()
+const bcrypt = require('bcrypt');
+// const authenticateToken = require('../middlewares/authenticateToken');
+
 
 
 router.get('/',getPaginatedResults(User),async (req,res)=>{
@@ -28,17 +33,18 @@ router.post('/',async (req,res)=>{
         res.status(400).json({message:err.message})
     }
 })
-router.post('/login',async(req,res)=>{
-    const user = await User.findOne({ email: req.body.email}).exec();
+router.post('/login',getOne(User,"email"),authorization(User),async(req,res)=>{
+    const user = res.modelResult;
     if(user==null){
         return res.status(400).send("can't find user")
     }
-    // return res.send(user);
     try {
-        if(await bcrypt.compare(req.body.password,user.password)){
-            res.send('Success')
+        console.log('checkPoint22')
+        const accessToken=jwt.sign(user.toString(), process.env.ACCESS_TOKEN_SECRET)
+        if(res.authorized){
+            res.json({accessToken})
         }else{
-            res.send('Not allowed')
+            console.log('fallllllse not authorized')
         }
     } catch (err) {
         res.status(400).json({message:err.message})
@@ -73,7 +79,6 @@ router.delete('/:id',getOne(User),async (req,res)=>{
         res.status(500).json({message:err.message})
     }
 });
-
 
 
 module.exports = router
