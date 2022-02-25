@@ -5,6 +5,8 @@ GET http://localhost:3000/posts
 GET http://localhost:3000/posts?page=1&limit=2
 
 ###
+GET http://localhost:3000/users?page=1&limit=2
+###
 
 POST http://localhost:3000/posts
 Content-Type: application/json
@@ -14,14 +16,45 @@ Content-Type: application/json
     "body":"a long ww h333 to type out"
 }
 ###
-GET http://localhost:3000/posts/62177d5ec97aaf80b4f9329d
+
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+    "name":"Magedwwaw2",
+    "email":"maged1w23@maged2.com",
+    "password":"12w3456"
+}
+###
+POST http://localhost:3000/users/login
+Content-Type: application/json
+
+{
+    "email":"maged1w23@maged2.com",
+    "password":"12w3456"
+}
+###
+GET http://localhost:3000/posts/62178aa0ad5061ad1e7e3061
 
 ###
-DELETE http://localhost:3000/posts/62177d5ec97aaf80b4f9329d
+
+GET http://localhost:3000/users/6217d83398c75f25ef908664
+
+###
+DELETE http://localhost:3000/posts/62178aa0ad5061ad1e7e3061
+###
+DELETE http://localhost:3000/users/6217d84398c75f25ef908666
 ###
 PATCH http://localhost:3000/posts/62178aa0ad5061ad1e7e3061
 Content-Type: application/json
 
 {
     "title":"new title"
+}
+###
+PATCH http://localhost:3000/users/6217d83398c75f25ef908664
+Content-Type: application/json
+
+{
+    "name":"new user name"
 }
